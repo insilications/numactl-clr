@@ -15,7 +15,7 @@ extern int numa_sched_getaffinity_v2_int(pid_t pid, struct bitmask *mask);
 #define CPU_BYTES(x) (round_up(x, BITS_PER_LONG)/8)
 #define CPU_LONGS(x) (CPU_BYTES(x) / sizeof(long))
 
-#define make_internal_alias(x) extern __typeof (x) x##_int __attribute((alias(#x), visibility("default")))
+#define make_internal_alias(x) extern __typeof (x) x##_int __attribute((alias(#x), visibility("default"), externally_visible))
 #define hidden __attribute__((visibility("hidden")))
 
 enum numa_warn {

@@ -688,14 +688,14 @@ make_internal_alias(numa_max_node);
  * which for v1 is the size of a numa.h nodemask_t(in bits)-1.
  * but for v2 is the size of a kernel nodemask_t(in bits)-1.
  */
-__attribute__ ((__symver__ ("numa_max_possible_node@libnuma_1.1"))) int
+__attribute__((__symver__("numa_max_possible_node@libnuma_1.1"))) int
 numa_max_possible_node_v1(void)
 {
 	return ((sizeof(nodemask_t)*8)-1);
 }
 /*  __asm__(".symver numa_max_possible_node_v1,numa_max_possible_node@libnuma_1.1"); */
 
-__attribute__ ((__symver__ ("numa_max_possible_node@libnuma_1.2"))) int
+__attribute__((__symver__("numa_max_possible_node@libnuma_1.2"))) int
 numa_max_possible_node_v2(void)
 {
 	return numa_num_possible_nodes()-1;
@@ -809,7 +809,7 @@ int numa_available(void)
 	return 0;
 }
 
-__attribute__ ((__symver__ ("numa_interleave_memory@libnuma_1.1"))) void
+__attribute__((__symver__("numa_interleave_memory@libnuma_1.1"))) void
 numa_interleave_memory_v1(void *mem, size_t size, const nodemask_t *mask)
 {
 	struct bitmask bitmask;
@@ -820,7 +820,7 @@ numa_interleave_memory_v1(void *mem, size_t size, const nodemask_t *mask)
 }
 // __asm__(".symver numa_interleave_memory_v1,numa_interleave_memory@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_interleave_memory@libnuma_1.2"))) void
+__attribute__((__symver__("numa_interleave_memory@libnuma_1.2"))) void
 numa_interleave_memory_v2(void *mem, size_t size, struct bitmask *bmp)
 {
 	dombind(mem, size, MPOL_INTERLEAVE, bmp);
@@ -837,7 +837,7 @@ void numa_tonode_memory(void *mem, size_t size, int node)
 	numa_bitmask_free(nodes);
 }
 
-__attribute__ ((__symver__ ("numa_tonodemask_memory@libnuma_1.1"))) void
+__attribute__((__symver__("numa_tonodemask_memory@libnuma_1.1"))) void
 numa_tonodemask_memory_v1(void *mem, size_t size, const nodemask_t *mask)
 {
 	struct bitmask bitmask;
@@ -848,7 +848,7 @@ numa_tonodemask_memory_v1(void *mem, size_t size, const nodemask_t *mask)
 }
 // __asm__(".symver numa_tonodemask_memory_v1,numa_tonodemask_memory@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_tonodemask_memory@libnuma_1.2"))) void
+__attribute__((__symver__("numa_tonodemask_memory@libnuma_1.2"))) void
 numa_tonodemask_memory_v2(void *mem, size_t size, struct bitmask *bmp)
 {
 	dombind(mem, size,  bind_policy, bmp);
@@ -898,7 +898,7 @@ void *numa_realloc(void *old_addr, size_t old_size, size_t new_size)
 	return mem;
 }
 
-__attribute__ ((__symver__ ("numa_alloc_interleaved_subset@libnuma_1.1"))) void *numa_alloc_interleaved_subset_v1(size_t size, const nodemask_t *mask)
+__attribute__((__symver__("numa_alloc_interleaved_subset@libnuma_1.1"))) void *numa_alloc_interleaved_subset_v1(size_t size, const nodemask_t *mask)
 {
 	char *mem;
 	struct bitmask bitmask;
@@ -914,7 +914,7 @@ __attribute__ ((__symver__ ("numa_alloc_interleaved_subset@libnuma_1.1"))) void 
 }
 // __asm__(".symver numa_alloc_interleaved_subset_v1,numa_alloc_interleaved_subset@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_alloc_interleaved_subset@libnuma_1.2"))) void *numa_alloc_interleaved_subset_v2(size_t size, struct bitmask *bmp)
+__attribute__((__symver__("numa_alloc_interleaved_subset@libnuma_1.2"))) void *numa_alloc_interleaved_subset_v2(size_t size, struct bitmask *bmp)
 {
 	char *mem;
 
@@ -939,7 +939,7 @@ numa_alloc_interleaved(size_t size)
 /*
  * given a user node mask, set memory policy to use those nodes
  */
-__attribute__ ((__symver__ ("numa_set_interleave_mask@libnuma_1.1"))) void
+__attribute__((__symver__("numa_set_interleave_mask@libnuma_1.1"))) void
 numa_set_interleave_mask_v1(nodemask_t *mask)
 {
 	struct bitmask *bmp;
@@ -956,7 +956,7 @@ numa_set_interleave_mask_v1(nodemask_t *mask)
 
 // __asm__(".symver numa_set_interleave_mask_v1,numa_set_interleave_mask@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_set_interleave_mask@libnuma_1.2"))) void
+__attribute__((__symver__("numa_set_interleave_mask@libnuma_1.2"))) void
 numa_set_interleave_mask_v2(struct bitmask *bmp)
 {
 	if (numa_bitmask_equal(bmp, numa_no_nodes_ptr))
@@ -966,7 +966,7 @@ numa_set_interleave_mask_v2(struct bitmask *bmp)
 }
 // __asm__(".symver numa_set_interleave_mask_v2,numa_set_interleave_mask@@libnuma_1.2");
 
-__attribute__ ((__symver__ ("numa_get_interleave_mask@libnuma_1.1"))) nodemask_t
+__attribute__((__symver__("numa_get_interleave_mask@libnuma_1.1"))) nodemask_t
 numa_get_interleave_mask_v1(void)
 {
 	int oldpolicy;
@@ -984,7 +984,7 @@ numa_get_interleave_mask_v1(void)
 }
 // __asm__(".symver numa_get_interleave_mask_v1,numa_get_interleave_mask@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_get_interleave_mask@libnuma_1.2"))) struct bitmask * 
+__attribute__((__symver__("numa_get_interleave_mask@libnuma_1.2"))) struct bitmask * 
 numa_get_interleave_mask_v2(void)
 {
 	int oldpolicy;
@@ -1044,7 +1044,7 @@ void numa_set_bind_policy(int strict)
 		bind_policy = MPOL_PREFERRED;
 }
 
-__attribute__ ((__symver__ ("numa_set_membind@libnuma_1.1"))) void
+__attribute__((__symver__("numa_set_membind@libnuma_1.1"))) void
 numa_set_membind_v1(const nodemask_t *mask)
 {
 	struct bitmask bitmask;
@@ -1055,7 +1055,7 @@ numa_set_membind_v1(const nodemask_t *mask)
 }
 // __asm__(".symver numa_set_membind_v1,numa_set_membind@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_set_membind@libnuma_1.2"))) void
+__attribute__((__symver__("numa_set_membind@libnuma_1.2"))) void
 numa_set_membind_v2(struct bitmask *bmp)
 {
 	setpol(MPOL_BIND, bmp);
@@ -1119,7 +1119,7 @@ copy_nodemask_to_bitmask(nodemask_t *nmp, struct bitmask *bmp)
 	}
 }
 
-__attribute__ ((__symver__ ("numa_get_membind@libnuma_1.1"))) nodemask_t
+__attribute__((__symver__("numa_get_membind@libnuma_1.1"))) nodemask_t
 numa_get_membind_v1(void)
 {
 	int oldpolicy;
@@ -1140,7 +1140,7 @@ numa_get_membind_v1(void)
 }
 // __asm__(".symver numa_get_membind_v1,numa_get_membind@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_get_membind@libnuma_1.2"))) struct bitmask *
+__attribute__((__symver__("numa_get_membind@libnuma_1.2"))) struct bitmask *
 numa_get_membind_v2(void)
 {
 	int oldpolicy;
@@ -1175,7 +1175,7 @@ void numa_free(void *mem, size_t size)
 	munmap(mem, size);
 }
 
-__attribute__ ((__symver__ ("numa_parse_bitmap@libnuma_1.1"))) int
+__attribute__((__symver__("numa_parse_bitmap@libnuma_1.1"))) int
 numa_parse_bitmap_v1(char *line, unsigned long *mask, int ncpus)
 {
 	int i;
@@ -1210,7 +1210,7 @@ numa_parse_bitmap_v1(char *line, unsigned long *mask, int ncpus)
 }
 // __asm__(".symver numa_parse_bitmap_v1,numa_parse_bitmap@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_parse_bitmap@libnuma_1.2"))) int
+__attribute__((__symver__("numa_parse_bitmap@libnuma_1.2"))) int
 numa_parse_bitmap_v2(char *line, struct bitmask *mask)
 {
 	int i, ncpus;
@@ -1268,7 +1268,7 @@ static void cleanup_node_cpu_mask_v2(void)
 
 /* This would be better with some locking, but I don't want to make libnuma
    dependent on pthreads right now. The races are relatively harmless. */
-__attribute__ ((__symver__ ("numa_node_to_cpus@libnuma_1.1"))) int
+__attribute__((__symver__("numa_node_to_cpus@libnuma_1.1"))) int
 numa_node_to_cpus_v1(int node, unsigned long *buffer, int bufferlen)
 {
 	int err = 0;
@@ -1357,7 +1357,7 @@ numa_node_to_cpus_v1(int node, unsigned long *buffer, int bufferlen)
 /*
  * deliver a bitmask of cpus representing the cpus on a given node
  */
-__attribute__ ((__symver__ ("numa_node_to_cpus@libnuma_1.2"))) int
+__attribute__((__symver__("numa_node_to_cpus@libnuma_1.2"))) int
 numa_node_to_cpus_v2(int node, struct bitmask *buffer)
 {
 	int err = 0;
@@ -1478,7 +1478,7 @@ end:
 	return ret;
 }
 
-__attribute__ ((__symver__ ("numa_run_on_node_mask@libnuma_1.1"))) int
+__attribute__((__symver__("numa_run_on_node_mask@libnuma_1.1"))) int
 numa_run_on_node_mask_v1(const nodemask_t *mask)
 {
 	int ncpus = numa_num_possible_cpus();
@@ -1537,7 +1537,7 @@ numa_run_on_node_mask_v1(const nodemask_t *mask)
  * a user argument list) set up a map of cpus (map "cpus") on those nodes.
  * Then set affinity to those cpus.
  */
-__attribute__ ((__symver__ ("numa_run_on_node_mask@libnuma_1.2"))) int
+__attribute__((__symver__("numa_run_on_node_mask@libnuma_1.2"))) int
 numa_run_on_node_mask_v2(struct bitmask *bmp)
 {
 	int ncpus, i, k, err;
@@ -1631,7 +1631,7 @@ numa_run_on_node_mask_all(struct bitmask *bmp)
 	return err;
 }
 
-__attribute__ ((__symver__ ("numa_get_run_node_mask@libnuma_1.1"))) nodemask_t
+__attribute__((__symver__("numa_get_run_node_mask@libnuma_1.1"))) nodemask_t
 numa_get_run_node_mask_v1(void)
 {
 	int ncpus = numa_num_configured_cpus();
@@ -1667,7 +1667,7 @@ free_cpus:
 }
 // __asm__(".symver numa_get_run_node_mask_v1,numa_get_run_node_mask@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_get_run_node_mask@libnuma_1.2"))) struct bitmask *
+__attribute__((__symver__("numa_get_run_node_mask@libnuma_1.2"))) struct bitmask *
 numa_get_run_node_mask_v2(void)
 {
 	int i, k;
@@ -1792,7 +1792,7 @@ void numa_set_localalloc(void)
 	setpol(MPOL_DEFAULT, numa_no_nodes_ptr);
 }
 
-__attribute__ ((__symver__ ("numa_bind@libnuma_1.1"))) void numa_bind_v1(const nodemask_t *nodemask)
+__attribute__((__symver__("numa_bind@libnuma_1.1"))) void numa_bind_v1(const nodemask_t *nodemask)
 {
 	struct bitmask bitmask;
 
@@ -1803,7 +1803,7 @@ __attribute__ ((__symver__ ("numa_bind@libnuma_1.1"))) void numa_bind_v1(const n
 }
 // __asm__(".symver numa_bind_v1,numa_bind@libnuma_1.1");
 
-__attribute__ ((__symver__ ("numa_bind@libnuma_1.2"))) void numa_bind_v2(struct bitmask *bmp)
+__attribute__((__symver__("numa_bind@libnuma_1.2"))) void numa_bind_v2(struct bitmask *bmp)
 {
 	numa_run_on_node_mask_v2_int(bmp);
 	numa_set_membind_v2_int(bmp);
